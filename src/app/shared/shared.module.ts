@@ -6,21 +6,24 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { SidebarService } from '../services/sidebar.service';
+import { GenericBarComponent } from './generic-bar/generic-bar.component';
+import { OperationsComponent } from './operations/operations.component';
 
 @NgModule({
   declarations: [
     BreadcrumbsComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    GenericBarComponent,
+    OperationsComponent,
   ],
-  exports:[
+  exports: [
     BreadcrumbsComponent,
     SidebarComponent,
-    HeaderComponent
+    HeaderComponent,
+    GenericBarComponent,
+    OperationsComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule
-  ]
+  imports: [CommonModule, RouterModule],
 })
-export class SharedModule { }
+export class SharedModule {}

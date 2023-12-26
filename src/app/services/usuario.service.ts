@@ -7,29 +7,51 @@ import { environment } from '../../environments/environment';
 import { RegisterForm } from '../interfaces/register-form.interfaces';
 import { LoginForm } from '../interfaces/login-form.interfaces';
 
-const base_url = environment.base_url;
+const base_url = environment.base_url_autenticacion;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
+export class UsuarioService {
+  menu: any[] = [
+    {
+      titulo: 'Inicio',
+      icono: 'mdi mdi-gauge',
+      submenu: [
+        { titulo: 'Main', url: '/' },
+        { titulo: 'Promesas', url: 'promesas' },
+        { titulo: 'ProgressBar', url: 'progress' },
+        { titulo: 'Graficas', url: 'grafica1' },
+        { titulo: 'Rxjs', url: 'rxjs' },
+      ],
+    },
+    {
+      titulo: 'Usuarios App',
+      icono: 'mdi mdi-wrench',
+      submenu: [
+        { titulo: 'Main', url: '/' },
+        { titulo: 'Promesas', url: 'promesas' },
+        { titulo: 'ProgressBar', url: 'progress' },
+        { titulo: 'Graficas', url: 'grafica1' },
+        { titulo: 'Rxjs', url: 'rxjs' },
+      ],
+    },
+  ];
 
-export class UsuarioService {  
+  constructor(private http: HttpClient) {}
 
-  constructor( private http: HttpClient) { }
-
-  crearUsuario(formData:RegisterForm){
+  crearUsuario(formData: RegisterForm) {
     console.log('creando Usuario...');
-    return this.http.post(`${ base_url}/usuarios`,formData);
+    return this.http.post(`${base_url}/usuarios`, formData);
   }
 
-  login(formData:any){
-    console.log('creando Usuario...');
-    return this.http.post(`${ base_url}/Token`,formData)
-    .pipe(
-      tap((resp:any)=>{        
-        localStorage.setItem('token',resp.token)
+  login(formData: any) {
+    console.log('Verificando Usuario...');
+    return this.http.post(`${base_url}/Token`, formData).pipe(
+      tap((resp: any) => {
+        localStorage.setItem('token', resp.data.token);
+        this.menu = resp.data.menu;
       })
     );
   }
-
 }
